@@ -47,11 +47,10 @@ opts_chunk$set(
 disaster<-read.csv("disaster_fill_date.csv")
 
 map_disaster<-disaster %>% 
-  filter(Longitude>=-180 & Latitude>=-90) # %>%
-  #filter(Disaster.Type=="Flood"|Disaster.Type=="Storm"|Disaster.Type=="Earthquake") %>%
-  #arrange(desc(Total.Deaths)) %>% 
-  #group_by(Disaster.Type) %>%
-  #slice(1:20)
+  filter(Longitude>=-180 & Latitude>=-90) %>%
+  filter(Disaster.Type=="Flood"|Disaster.Type=="Storm"|Disaster.Type=="Earthquake") %>%
+  arrange(desc(Total.Deaths)) %>% 
+  group_by(Disaster.Type)
   
 
 map_disaster$Date<-as.Date(map_disaster$Date)
@@ -83,7 +82,7 @@ fig <- fig %>% add_markers(
                       '(',Dis.Mag.Scale,'):', Dis.Mag.Value,  '<br>Total Death:', Total.Deaths,
                       '<br>Economic Losses(USD):', Total.Damages...000.US..)
   )
-fig <- fig %>% layout(title = 'Disaster Map)', geo = g)
+fig <- fig %>% layout(title = 'Disaster Map', geo = g)
 
 fig
 ```
